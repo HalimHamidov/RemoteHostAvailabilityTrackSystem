@@ -16,3 +16,12 @@ Content root path: D:\Projects\INNOSTAGE-1st assignment\URLAvailabilityTrackTask
 Now listening on: http://127.0.0.1:8080
 
 Application started. Press Ctrl+C to shut down.
+
+
+https://microsoft.github.io/reverse-proxy/articles/transforms.html
+
+// Set the comments path for the Swagger JSON and UI.
+
+https://docs.microsoft.com/ru-ru/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio
+
+

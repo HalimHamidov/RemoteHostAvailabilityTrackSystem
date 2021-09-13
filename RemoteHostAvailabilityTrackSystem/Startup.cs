@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RemoteHostAvailabilityTrackSystem.MiddleWares;
+using RemoteHostAvailabilityTrackSystem.Services;
+using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem
 {
@@ -63,6 +65,8 @@ namespace RemoteHostAvailabilityTrackSystem
                 .AddHealthChecks();
             services.AddAutoMapper((Action<IServiceProvider, IMapperConfigurationExpression>) null,
                 AppDomain.CurrentDomain.GetAssemblies());
+            
+            services.AddScoped<ICheckApiService, CheckApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
