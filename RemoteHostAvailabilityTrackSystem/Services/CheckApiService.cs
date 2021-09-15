@@ -11,32 +11,32 @@ namespace RemoteHostAvailabilityTrackSystem.Services
 {
     public class CheckApiService : ICheckApiService
     {
-            public async Task<CheckApiResponse> CheckApi(CheckApiRequest request, CancellationToken cancellationToken)
+        public async Task<CheckApiResponse> CheckApi(CheckApiRequest request, CancellationToken cancellationToken)
+        {
+            if (!Uri.IsWellFormedUriString(request.Api, UriKind.Absolute))
+                return new CheckApiResponse
+                {
+                    IsValid = false
+                };
+            var uri = new Uri(request.Api);
+            try
             {
-                if (!Uri.IsWellFormedUriString(request.Api, UriKind.Absolute))
-                    return new CheckApiResponse
-                    {
-                        IsValid = false
-                    };
-                var uri = new Uri(request.Api);
-                try
+                var httpWebRequest = WebRequest.Create(uri);
+                await httpWebRequest.GetResponseAsync();
+                return new CheckApiResponse
                 {
-                    var httpWebRequest = WebRequest.Create(uri);
-                    await httpWebRequest.GetResponseAsync();
-                    return new CheckApiResponse
-                    {
-                        IsValid = true
-                    };
+                    IsValid = true
+                };
 
-                }
-                catch
-                {
-                    return new CheckApiResponse
-                    {
-                        IsValid = false
-                    };
-                }
             }
+            catch
+            {
+                return new CheckApiResponse
+                {
+                    IsValid = false
+                };
+            }
+        }
         
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text.Json;
@@ -15,6 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using RemoteHostAvailabilityTrackSystem.DataBase;
+using RemoteHostAvailabilityTrackSystem.DataBase.Repositories;
+using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
 using RemoteHostAvailabilityTrackSystem.MiddleWares;
 using RemoteHostAvailabilityTrackSystem.Services;
 using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
@@ -56,6 +60,8 @@ namespace RemoteHostAvailabilityTrackSystem
             
             services.AddAutoMapper(typeof(Startup))
                 .AddSwagger();
+
+            services.RegisterContext("Datasource = local.db");
             
             services
                 .AddRouting()
@@ -67,6 +73,9 @@ namespace RemoteHostAvailabilityTrackSystem
                 AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddScoped<ICheckApiService, CheckApiService>();
+            services.AddScoped<IAddJobService, AddJobService>();
+            services.AddScoped<IGetJobsService, GetJobsService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,7 +95,13 @@ namespace RemoteHostAvailabilityTrackSystem
             {
                 endpoint.MapDefaultControllerRoute();
             });
-            
+
+            if (File.Exists("local.db"))
+            {
+                using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()?.CreateScope();
+                var context = serviceScope?.ServiceProvider.GetService<Func<DataContext>>();
+                context?.Invoke().Database.EnsureCreated();
+            }
             Console.WriteLine("Server started");
         }
     }

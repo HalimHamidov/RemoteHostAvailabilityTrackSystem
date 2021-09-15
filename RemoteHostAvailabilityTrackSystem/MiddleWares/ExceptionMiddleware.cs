@@ -8,6 +8,7 @@ namespace RemoteHostAvailabilityTrackSystem.MiddleWares
 {
     public class ExceptionMiddleware
     {
+        
         private RequestDelegate Next { get; }
         private IHostEnvironment Environment {get;}
 
@@ -36,6 +37,8 @@ namespace RemoteHostAvailabilityTrackSystem.MiddleWares
             var statusCode = 500;
             context.Response.ContentType = "applicaton/json";
             context.Response.StatusCode = statusCode;
+            var response = new {error = e.Message};
+            await context.Response.WriteAsJsonAsync(response);
 
             if (e is KeyNotFoundException)
             {
