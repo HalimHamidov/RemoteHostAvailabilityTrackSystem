@@ -75,6 +75,8 @@ namespace RemoteHostAvailabilityTrackSystem
             services.AddScoped<ICheckApiService, CheckApiService>();
             services.AddScoped<IAddJobService, AddJobService>();
             services.AddScoped<IGetJobsService, GetJobsService>();
+            services.AddScoped<IGetCheckInPeriodService, GetCheckInPeriodService>();
+            services.AddScoped<ICheckAllApiService, CheckAllApiService>();
             
         }
 

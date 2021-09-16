@@ -5,9 +5,6 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-//using Microsoft.OpenApi.Models;
-//using Microsoft.VisualBasic;
-
 namespace RemoteHostAvailabilityTrackSystem.MiddleWares
 {
     public static class SwaggerConfig

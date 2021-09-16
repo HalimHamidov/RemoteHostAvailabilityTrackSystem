@@ -13,6 +13,8 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase
         {
             servicesCollection.AddScoped<IAddJobRepository, AddJobRepository>();
             servicesCollection.AddScoped<IGetJobsRepository, GetJobsRepository>();
+            servicesCollection.AddScoped<IAddResultCheckRepository, AddResultCheckRepository>();
+            servicesCollection.AddScoped<IGetCheckAllResultRepository, GetCheckAllResultRepository>();
 
             var dbContextBuilder = new DbContextOptionsBuilder();
 
@@ -23,8 +25,7 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase
 
             servicesCollection.AddSingleton(dbContextBuilder.SetOptions(connectionString).Options);
 
-            servicesCollection.AddSingleton<Func<DataContext>>(s =>
-                () => new DataContext(s.GetRequiredService<DbContextOptions>()));
+            servicesCollection.AddSingleton<Func<DataContext>>(s => () => new DataContext(s.GetRequiredService<DbContextOptions>()));
         }
     }
 }
