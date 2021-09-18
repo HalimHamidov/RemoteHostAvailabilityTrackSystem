@@ -3,6 +3,8 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
+using RemoteHostAvailabilityTrackSystem.DataBase.Models;
+using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
 using RemoteHostAvailabilityTrackSystem.Requests;
 using RemoteHostAvailabilityTrackSystem.Responses;
 using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
@@ -11,31 +13,52 @@ namespace RemoteHostAvailabilityTrackSystem.Services
 {
     public class CheckApiService : ICheckApiService
     {
+        private readonly IAddResultCheckRepository _addResultCheckRepository;
+        private readonly IUpdateRunDateJobRepository _updateRunDateJobRepository;
+
+        public CheckApiService(IAddResultCheckRepository addResultCheckRepository, IUpdateRunDateJobRepository updateRunDateJobRepository)
+        {
+            _addResultCheckRepository = addResultCheckRepository;
+            _updateRunDateJobRepository = updateRunDateJobRepository;
+        }
+
         public async Task<CheckApiResponse> CheckApi(CheckApiRequest request, CancellationToken cancellationToken)
         {
-            if (!Uri.IsWellFormedUriString(request.Api, UriKind.Absolute))
-                return new CheckApiResponse
-                {
-                    IsValid = false
-                };
-            var uri = new Uri(request.Api);
+            var response = new CheckApiResponse
+            {
+                IsValid = false
+            };
+
             try
             {
+                var uri = new Uri(request.Api);
                 var httpWebRequest = WebRequest.Create(uri);
                 await httpWebRequest.GetResponseAsync();
-                return new CheckApiResponse
-                {
-                    IsValid = true
-                };
-
+                response.IsValid = true;
             }
             catch
             {
-                return new CheckApiResponse
-                {
-                    IsValid = false
-                };
+
+                response.IsValid = false;
             }
+            finally
+            {
+                if (request.JobId != null)
+                {
+                    var dateTime = DateTime.Now;
+                    var result = new CheckApiResult
+                    {
+                        CheckApiJobId = request.JobId ?? 0,
+                        IsValid = response.IsValid,
+                        RunDate = dateTime
+                    };
+
+                await _addResultCheckRepository.AddResult(result, cancellationToken);
+                await _updateRunDateJobRepository.UpdateRunDate(request.JobId ?? 0, dateTime, cancellationToken);
+            }
+        }
+
+        return response;
         }
         
     }

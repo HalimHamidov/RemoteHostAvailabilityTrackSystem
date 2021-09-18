@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RemoteHostAvailabilityTrackSystem.DataBase.Repositories;
 using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
-using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.DataBase
 {
@@ -15,6 +14,7 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase
             servicesCollection.AddScoped<IGetJobsRepository, GetJobsRepository>();
             servicesCollection.AddScoped<IAddResultCheckRepository, AddResultCheckRepository>();
             servicesCollection.AddScoped<IGetCheckAllResultRepository, GetCheckAllResultRepository>();
+            servicesCollection.AddScoped<IUpdateRunDateJobRepository, UpdateRunDateJobRepository>();
 
             var dbContextBuilder = new DbContextOptionsBuilder();
 

@@ -25,11 +25,11 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
             var result = await context
                 .CheckApiResults
                 .Join(context.CheckApiJobModels, r => r.CheckApiJobId, j => j.Id, (r, j) => new GetCheckInPeriodResponse
-                    {
-                        Api = j.Api,
-                        Date = r.RunDate,
-                        IsValid = r.IsValid
-                    })
+                {
+                    Api = j.Api,
+                    Date = r.RunDate,
+                    IsValid = r.IsValid
+                })
                 .ToListAsync(cancellationToken);
             return result;
         }

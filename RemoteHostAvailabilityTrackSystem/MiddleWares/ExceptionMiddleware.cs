@@ -10,12 +10,10 @@ namespace RemoteHostAvailabilityTrackSystem.MiddleWares
     {
         
         private RequestDelegate Next { get; }
-        private IHostEnvironment Environment {get;}
 
-        public ExceptionMiddleware(RequestDelegate next, IHostEnvironment environment)
+        public ExceptionMiddleware(RequestDelegate next)
         {
             Next = next ?? throw new ArgumentNullException(nameof(next));
-            Environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
 
         public async Task InvokeAsync(HttpContext context)

@@ -7,6 +7,6 @@ namespace RemoteHostAvailabilityTrackSystem.Services.Interfaces
 {
     public interface ICheckAllApiService
     {
-        Task<ICollection<CheckAllApiResponse>> CheckAll(CancellationToken cancellationToken);
+        public Task<ICollection<CheckAllApiResponse>> CheckAll(CancellationToken cancellationToken);
     }
 }

@@ -1,14 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using RemoteHostAvailabilityTrackSystem.Jobs;
 
 namespace RemoteHostAvailabilityTrackSystem
 {
@@ -17,13 +11,21 @@ namespace RemoteHostAvailabilityTrackSystem
 
         public static void Main(string[] args)
         {
-            try{
-                new WebHostBuilder().UseStartup<Startup>().UseKestrel(options =>
+            try
+            {
+                var host = new WebHostBuilder().UseStartup<Startup>().UseKestrel(options =>
                     {
-                        options.Listen(IPAddress.Loopback, 8080);//HTTP port
+                        options.Listen(IPAddress.Loopback, 8080); //HTTP port
                     })
-                    .Build()
-                    .Run();
+                    .Build();
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    var serviceProvider = scope.ServiceProvider;
+
+                    DataScheduler.Start(serviceProvider);
+                }
+                host.Run();
             }
             catch(Exception ex)
             {

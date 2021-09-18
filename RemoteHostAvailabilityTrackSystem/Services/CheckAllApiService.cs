@@ -45,8 +45,6 @@ namespace RemoteHostAvailabilityTrackSystem.Services
                     IsValid = result.IsValid,
                     RunDate = DateTime.Now
                 }, cancellationToken);
-
-              
             }
             return results;
         }

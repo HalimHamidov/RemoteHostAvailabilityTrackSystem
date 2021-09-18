@@ -8,7 +8,7 @@ namespace RemoteHostAvailabilityTrackSystem.Services.Interfaces
 {
     public interface IGetCheckInPeriodService
     {
-        Task<ICollection<GetCheckInPeriodResponse>> GetCheckInPeriod(GetCheckInPeriodRequest request,
+        public Task<ICollection<GetCheckInPeriodResponse>> GetCheckInPeriod(GetCheckInPeriodRequest request,
             CancellationToken cancellationToken);
     }
 }

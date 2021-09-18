@@ -1,24 +1,15 @@
 using System;
 using AutoMapper;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RemoteHostAvailabilityTrackSystem.DataBase;
-using RemoteHostAvailabilityTrackSystem.DataBase.Repositories;
-using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
+using RemoteHostAvailabilityTrackSystem.Jobs;
 using RemoteHostAvailabilityTrackSystem.MiddleWares;
 using RemoteHostAvailabilityTrackSystem.Services;
 using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
@@ -75,9 +66,11 @@ namespace RemoteHostAvailabilityTrackSystem
             services.AddScoped<ICheckApiService, CheckApiService>();
             services.AddScoped<IAddJobService, AddJobService>();
             services.AddScoped<IGetJobsService, GetJobsService>();
-            services.AddScoped<IGetCheckInPeriodService, GetCheckInPeriodService>();
             services.AddScoped<ICheckAllApiService, CheckAllApiService>();
-            
+            services.AddScoped<IGetCheckInPeriodService, GetCheckInPeriodService>();
+            services.AddTransient<JobFactory>();
+            services.AddScoped<CheckApiJob>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
