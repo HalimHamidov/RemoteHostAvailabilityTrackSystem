@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 
 namespace RemoteHostAvailabilityTrackSystem.MiddleWares
 {
     public class ExceptionMiddleware
     {
-        
         private RequestDelegate Next { get; }
 
         public ExceptionMiddleware(RequestDelegate next)

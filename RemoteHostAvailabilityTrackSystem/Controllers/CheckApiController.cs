@@ -36,11 +36,9 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
             {
                 Api = api
             };
-            
             var result = await _checkApiService.CheckApi(request, cancellationToken);
             return result.IsValid;
         }
-        
         [HttpGet]
         [Route("get-jobs")]
         public async Task<ICollection<CheckApiJobModel>> GetJobs(CancellationToken cancellationToken)
@@ -54,16 +52,12 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
         {
             await _addJobService.AddJob(model, cancellationToken);
         }
-        
         [HttpPost]
         [Route("check-all")]
         public async Task<ICollection<CheckAllApiResponse>> CheckAll(CancellationToken cancellationToken)
         {
             return await _checkAllApiService.CheckAll(cancellationToken);
-           
         }
-        
-                        
         [HttpGet]
         [Route("get-check-in-periods")]
         public async Task<ICollection<GetCheckInPeriodResponse>> GetJobs([FromQuery]GetCheckInPeriodRequest request, CancellationToken cancellationToken)
@@ -71,7 +65,5 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
             return await _getCheckInPeriodService.GetCheckInPeriod(request, cancellationToken);
         }
 
-        
-        
     }
 }

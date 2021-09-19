@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using RemoteHostAvailabilityTrackSystem.DataBase.Models;
@@ -55,11 +54,9 @@ namespace RemoteHostAvailabilityTrackSystem.Services
 
                 await _addResultCheckRepository.AddResult(result, cancellationToken);
                 await _updateRunDateJobRepository.UpdateRunDate(request.JobId ?? 0, dateTime, cancellationToken);
+                }
             }
+            return response;
         }
-
-        return response;
-        }
-        
     }
 }

@@ -15,6 +15,7 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase
             servicesCollection.AddScoped<IAddResultCheckRepository, AddResultCheckRepository>();
             servicesCollection.AddScoped<IGetCheckAllResultRepository, GetCheckAllResultRepository>();
             servicesCollection.AddScoped<IUpdateRunDateJobRepository, UpdateRunDateJobRepository>();
+            servicesCollection.AddScoped<IGetJobIdAndDateByParamsRepository, GetJobIdAndDateByParamsRepository>();
 
             var dbContextBuilder = new DbContextOptionsBuilder();
 

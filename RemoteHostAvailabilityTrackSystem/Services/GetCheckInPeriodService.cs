@@ -12,13 +12,11 @@ namespace RemoteHostAvailabilityTrackSystem.Services
     public class GetCheckInPeriodService : IGetCheckInPeriodService
     {
         private readonly IGetCheckAllResultRepository _getCheckAllResultRepository;
-        
         public GetCheckInPeriodService(IGetCheckAllResultRepository getCheckAllResultRepository)
         {
             _getCheckAllResultRepository = getCheckAllResultRepository;
         }
 
-        
         public async Task<ICollection<GetCheckInPeriodResponse>> GetCheckInPeriod(GetCheckInPeriodRequest request,
             CancellationToken cancellationToken)
         {
@@ -29,4 +27,3 @@ namespace RemoteHostAvailabilityTrackSystem.Services
         }
     }
 }
-

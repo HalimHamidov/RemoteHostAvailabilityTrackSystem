@@ -11,6 +11,5 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase
 
         public DbSet<CheckApiJobModel> CheckApiJobModels { get; set; }
         public DbSet<CheckApiResult> CheckApiResults { get; set; }
-        
     }
 }

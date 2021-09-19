@@ -12,7 +12,6 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
         [Route("add-user")]
         public async Task AddUser(CancellationToken cancellationToken)
         {
-            
         }
 
         [HttpGet]

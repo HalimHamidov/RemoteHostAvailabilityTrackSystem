@@ -48,21 +48,17 @@ namespace RemoteHostAvailabilityTrackSystem
                 })
                 .AddApiExplorer()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            
             services.AddAutoMapper(typeof(Startup))
                 .AddSwagger();
 
             services.RegisterContext("Datasource = local.db");
-            
             services
                 .AddRouting()
                 .AddControllers();
-            
             services
                 .AddHealthChecks();
             services.AddAutoMapper((Action<IServiceProvider, IMapperConfigurationExpression>) null,
                 AppDomain.CurrentDomain.GetAssemblies());
-            
             services.AddScoped<ICheckApiService, CheckApiService>();
             services.AddScoped<IAddJobService, AddJobService>();
             services.AddScoped<IGetJobsService, GetJobsService>();
@@ -79,7 +75,6 @@ namespace RemoteHostAvailabilityTrackSystem
             app.UseExceptionHandlerEx();
             app.UseRouting();
             app.UseAuthentication();
-            
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
