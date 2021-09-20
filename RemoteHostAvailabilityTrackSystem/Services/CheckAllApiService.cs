@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using RemoteHostAvailabilityTrackSystem.DataBase.Models;
@@ -24,11 +25,12 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             _addResultCheckRepository = addResultCheckRepository;
         }
 
-        public async Task<ICollection<CheckAllApiResponse>> CheckAll(CancellationToken cancellationToken)
+        public async Task<ICollection<CheckAllApiResponse>> CheckAll(long userId, CancellationToken cancellationToken)
         {
             var results = new List<CheckAllApiResponse>();
             var jobs = await _getJobsRepository.GetJobs(cancellationToken);
-            foreach (var one  in jobs)
+            var needJobs = jobs.Where(q => q.UserId == userId);
+            foreach (var one  in needJobs)
             {
                 var result = await _checkApiService.CheckApi(new CheckApiRequest
                 {

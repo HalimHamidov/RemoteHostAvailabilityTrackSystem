@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RemoteHostAvailabilityTrackSystem.DataBase;
+using RemoteHostAvailabilityTrackSystem.DataBase.Repositories;
 using RemoteHostAvailabilityTrackSystem.Jobs;
 using RemoteHostAvailabilityTrackSystem.MiddleWares;
 using RemoteHostAvailabilityTrackSystem.Services;
@@ -64,6 +65,9 @@ namespace RemoteHostAvailabilityTrackSystem
             services.AddScoped<IGetJobsService, GetJobsService>();
             services.AddScoped<ICheckAllApiService, CheckAllApiService>();
             services.AddScoped<IGetCheckInPeriodService, GetCheckInPeriodService>();
+            services.AddScoped<ICheckAuthService, CheckAuthService>();
+            services.AddScoped<IAddUserService, AddUserService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<JobFactory>();
             services.AddScoped<CheckApiJob>();
 

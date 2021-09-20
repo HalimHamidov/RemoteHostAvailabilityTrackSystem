@@ -6,6 +6,6 @@ namespace RemoteHostAvailabilityTrackSystem.Services.Interfaces
 {
     public interface IAddJobService
     {
-        public Task AddJob(AddJobRequest job, CancellationToken cancellationToken);
+        public Task AddJob(AddJobRequest job, long userId,  CancellationToken cancellationToken);
     }
 }

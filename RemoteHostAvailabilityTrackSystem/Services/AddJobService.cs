@@ -19,7 +19,7 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             _addJobRepository = addJobRepository;
         }
 
-        public async Task AddJob(AddJobRequest job, CancellationToken cancellationToken)
+        public async Task AddJob(AddJobRequest job, long userId, CancellationToken cancellationToken)
         {
             if (!Uri.IsWellFormedUriString(job.Api, UriKind.Absolute))
             {

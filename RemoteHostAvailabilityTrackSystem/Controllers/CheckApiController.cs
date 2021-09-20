@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -18,20 +19,24 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
         private readonly IGetJobsService _getJobsService;
         private readonly ICheckAllApiService _checkAllApiService;
         private readonly IGetCheckInPeriodService _getCheckInPeriodService;
+        private readonly ICheckAuthService _checkAuthService;
 
         public CheckApiController(ICheckApiService checkApiService, IAddJobService addJobService,
-            IGetJobsService getJobsService, ICheckAllApiService checkAllApiService, IGetCheckInPeriodService getCheckInPeriodService)
+            IGetJobsService getJobsService, ICheckAllApiService checkAllApiService, IGetCheckInPeriodService getCheckInPeriodService, ICheckAuthService checkAuthService)
         {
             _checkApiService = checkApiService;
             _addJobService = addJobService;
             _getJobsService = getJobsService;
             _checkAllApiService = checkAllApiService;
             _getCheckInPeriodService = getCheckInPeriodService;
+            _checkAuthService = checkAuthService;
         }
 
         [HttpGet]
-        public async Task<bool> CheckApi([FromQuery] string api, CancellationToken cancellationToken)
+        [Route("{key}")]
+        public async Task<bool> CheckApi([FromRoute] string key,[FromQuery] string api, CancellationToken cancellationToken)
         {
+            await _checkAuthService.CheckAuth(key, cancellationToken);
             var request = new CheckApiRequest
             {
                 Api = api
@@ -40,29 +45,34 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
             return result.IsValid;
         }
         [HttpGet]
-        [Route("get-jobs")]
-        public async Task<ICollection<CheckApiJobModel>> GetJobs(CancellationToken cancellationToken)
+        [Route("get-jobs/{key}")]
+        public async Task<ICollection<CheckApiJobModel>> GetJobs([FromRoute] string key, CancellationToken cancellationToken)
         {
-            return await _getJobsService.GetJobs(cancellationToken);
+            var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
+            var jobs = await _getJobsService.GetJobs(cancellationToken);
+            return jobs.Where(q => q.UserId == userId).ToList();
         }
 
         [HttpPost]
-        [Route("add-job")]
-        public async Task AddJob([FromBody] AddJobRequest model, CancellationToken cancellationToken)
+        [Route("add-job/{key}")]
+        public async Task AddJob([FromRoute] string key, [FromBody] AddJobRequest model, CancellationToken cancellationToken)
         {
-            await _addJobService.AddJob(model, cancellationToken);
+            var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
+            await _addJobService.AddJob(model, userId, cancellationToken);
         }
         [HttpPost]
-        [Route("check-all")]
-        public async Task<ICollection<CheckAllApiResponse>> CheckAll(CancellationToken cancellationToken)
+        [Route("check-all/{key}")]
+        public async Task<ICollection<CheckAllApiResponse>> CheckAll([FromRoute] string key,CancellationToken cancellationToken)
         {
-            return await _checkAllApiService.CheckAll(cancellationToken);
+            var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
+            return await _checkAllApiService.CheckAll(userId, cancellationToken);
         }
         [HttpGet]
-        [Route("get-check-in-periods")]
-        public async Task<ICollection<GetCheckInPeriodResponse>> GetJobs([FromQuery]GetCheckInPeriodRequest request, CancellationToken cancellationToken)
+        [Route("get-check-in-periods/{key}")]
+        public async Task<ICollection<GetCheckInPeriodResponse>> GetJobs([FromRoute] string key,[FromQuery]GetCheckInPeriodRequest request, CancellationToken cancellationToken)
         {
-            return await _getCheckInPeriodService.GetCheckInPeriod(request, cancellationToken);
+            var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
+            return await _getCheckInPeriodService.GetCheckInPeriod(userId,request, cancellationToken);
         }
 
     }

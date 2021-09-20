@@ -17,10 +17,10 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             _getCheckAllResultRepository = getCheckAllResultRepository;
         }
 
-        public async Task<ICollection<GetCheckInPeriodResponse>> GetCheckInPeriod(GetCheckInPeriodRequest request,
+        public async Task<ICollection<GetCheckInPeriodResponse>> GetCheckInPeriod(long userId, GetCheckInPeriodRequest request,
             CancellationToken cancellationToken)
         {
-            var all = await _getCheckAllResultRepository.GetAll(cancellationToken);
+            var all = await _getCheckAllResultRepository.GetAll(userId, cancellationToken);
             var result = all.Where(q => q.Date >= (request.DateFrom ?? q.Date) &&
                                                                                   q.Date <= (request.DateEnd ?? q.Date)).ToList();
             return result;

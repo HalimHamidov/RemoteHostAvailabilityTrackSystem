@@ -7,6 +7,6 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces
 {
     public interface IGetCheckAllResultRepository
     {
-        public Task<ICollection<GetCheckInPeriodResponse>> GetAll(CancellationToken cancellationToken);
+        public Task<ICollection<GetCheckInPeriodResponse>> GetAll(long userId, CancellationToken cancellationToken);
     }
 }

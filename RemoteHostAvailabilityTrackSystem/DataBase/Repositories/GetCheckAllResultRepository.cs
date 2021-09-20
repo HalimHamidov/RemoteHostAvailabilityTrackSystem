@@ -18,7 +18,7 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
             _contextFactory = contextFactory;
         }
 
-        public async Task<ICollection<GetCheckInPeriodResponse>> GetAll(CancellationToken cancellationToken)
+        public async Task<ICollection<GetCheckInPeriodResponse>> GetAll(long userId, CancellationToken cancellationToken)
         {
             await using var context = _contextFactory();
 
