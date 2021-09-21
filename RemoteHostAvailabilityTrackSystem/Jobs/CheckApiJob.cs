@@ -42,27 +42,27 @@ namespace RemoteHostAvailabilityTrackSystem.Jobs
                     Api = api,
                     JobId = jobId
                 }, CancellationToken.None);
+            }
 
-                var groupJobs = jobs
-                    .GroupBy(q => new {q.Api, q.HoursInterval, q.MinutesInterval})
-                    .Select(s => new
-                    {
-                        s.Key.Api,
-                        s.Key.HoursInterval,
-                        s.Key.MinutesInterval
-                    });
-                foreach (var one in groupJobs)
+            var groupJobs = jobs
+                .GroupBy(q => new {q.Api, q.HoursInterval, q.MinutesInterval})
+                .Select(s => new
                 {
-                    var jobInfo = await getJobId.GetId(one.Api, one.MinutesInterval, one.HoursInterval,
-                        CancellationToken.None);
-                    if (jobInfo.Item2 == null)
-                        await Check(one.Api, jobInfo.Item1);
-                    else if ((one.MinutesInterval != null || one.HoursInterval != null)
-                             && jobInfo.Item2.Value
-                                 .AddMinutes(one.MinutesInterval ?? 0)
-                                 .AddMinutes((double) (one.HoursInterval ?? 0) * 60) <= dateTime)
-                        await Check(one.Api, jobInfo.Item1);
-                }
+                    s.Key.Api,
+                    s.Key.HoursInterval,
+                    s.Key.MinutesInterval
+                });
+            foreach (var one in groupJobs)
+            {
+                var jobInfo = await getJobId.GetId(one.Api, one.MinutesInterval, one.HoursInterval,
+                    CancellationToken.None);
+                if (jobInfo.Item2 == null)
+                    await Check(one.Api, jobInfo.Item1);
+                else if ((one.MinutesInterval != null || one.HoursInterval != null)
+                         && jobInfo.Item2.Value
+                             .AddMinutes(one.MinutesInterval ?? 0)
+                             .AddMinutes((double) (one.HoursInterval ?? 0) * 60) <= dateTime)
+                    await Check(one.Api, jobInfo.Item1);
             }
         }
     }
