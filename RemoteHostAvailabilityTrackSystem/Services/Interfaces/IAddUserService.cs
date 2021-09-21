@@ -5,6 +5,6 @@ namespace RemoteHostAvailabilityTrackSystem.Services.Interfaces
 {
     public interface IAddUserService
     {
-        Task AddUser(string login, string password, CancellationToken cancellationToken);
+       public Task AddUser(string login, string password, CancellationToken cancellationToken);
     }
 }

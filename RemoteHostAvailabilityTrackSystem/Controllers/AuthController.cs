@@ -30,9 +30,9 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
 
         [HttpGet]
         [Route("auth-user")]
-        public async Task<string> Authorize([FromQuery] string login,[FromQuery] string password, CancellationToken cancellationToken)
+        public async Task<string> Auth([FromQuery] string login,[FromQuery] string password, CancellationToken cancellationToken)
         {
-            return await _authService.Authorize(login, password, cancellationToken);
+            return await _authService.Auth(login, password, cancellationToken);
         }
     }
 }

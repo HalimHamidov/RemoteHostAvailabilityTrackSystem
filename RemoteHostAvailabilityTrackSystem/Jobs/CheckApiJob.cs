@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,15 +35,23 @@ namespace RemoteHostAvailabilityTrackSystem.Jobs
                 throw new Exception("IGetJobIdAndDateByParamsRepository is null");
             var jobs = await getJobsService.GetJobs(CancellationToken.None);
 
-            async Task Check(string api, int jobid)
+            async Task Check(string api, int jobId)
             {
                 await checkApiService.CheckApi(new CheckApiRequest
                 {
                     Api = api,
-                    JobId = jobid
+                    JobId = jobId
                 }, CancellationToken.None);
 
-                foreach (var one in jobs)
+                var groupJobs = jobs
+                    .GroupBy(q => new {q.Api, q.HoursInterval, q.MinutesInterval})
+                    .Select(s => new
+                    {
+                        s.Key.Api,
+                        s.Key.HoursInterval,
+                        s.Key.MinutesInterval
+                    });
+                foreach (var one in groupJobs)
                 {
                     var jobInfo = await getJobId.GetId(one.Api, one.MinutesInterval, one.HoursInterval,
                         CancellationToken.None);

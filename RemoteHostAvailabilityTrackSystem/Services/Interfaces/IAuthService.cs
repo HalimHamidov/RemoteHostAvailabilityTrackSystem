@@ -5,6 +5,6 @@ namespace RemoteHostAvailabilityTrackSystem.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<string> Authorize(string login, string password, CancellationToken cancellationToken);
+       public Task<string> Auth(string login, string password, CancellationToken cancellationToken);
     }
 }

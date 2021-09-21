@@ -7,6 +7,6 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces
 {
     public interface IGetUsersRepository
     {
-        Task<ICollection<UserModel>> GetUsers(CancellationToken cancellationToken);
+       public Task<ICollection<UserModel>> GetUsers(CancellationToken cancellationToken);
     }
 }

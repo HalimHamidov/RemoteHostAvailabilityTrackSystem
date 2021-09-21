@@ -6,6 +6,6 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces
 {
     public interface IAuthRepository
     {
-        Task Auth(UserModel userModel, CancellationToken cancellationToken);
+       public Task Auth(UserModel userModel, CancellationToken cancellationToken);
     }
 }

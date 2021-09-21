@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using RemoteHostAvailabilityTrackSystem.DataBase.Models;
+using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
 {
@@ -26,8 +27,6 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
             await using var context = _contextFactory();
             await context.AddAsync(user, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
-
-
         }
     }
 }

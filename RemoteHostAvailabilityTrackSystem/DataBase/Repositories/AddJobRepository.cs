@@ -21,6 +21,5 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
             await context.CheckApiJobModels.AddAsync(request, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
         }
-        
     }
 }

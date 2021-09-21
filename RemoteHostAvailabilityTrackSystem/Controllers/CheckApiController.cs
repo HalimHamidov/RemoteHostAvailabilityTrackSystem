@@ -39,11 +39,20 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
             await _checkAuthService.CheckAuth(key, cancellationToken);
             var request = new CheckApiRequest
             {
-                Api = api
+                Api = api,
             };
             var result = await _checkApiService.CheckApi(request, cancellationToken);
             return result.IsValid;
         }
+
+        [HttpPost]
+        [Route("add-job/{key}")]
+        public async Task AddJob([FromRoute] string key, [FromBody] AddJobRequest model, CancellationToken cancellationToken)
+        {
+            var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
+            await _addJobService.AddJob(model, userId, cancellationToken);
+        }
+
         [HttpGet]
         [Route("get-jobs/{key}")]
         public async Task<ICollection<CheckApiJobModel>> GetJobs([FromRoute] string key, CancellationToken cancellationToken)
@@ -54,19 +63,13 @@ namespace RemoteHostAvailabilityTrackSystem.Controllers
         }
 
         [HttpPost]
-        [Route("add-job/{key}")]
-        public async Task AddJob([FromRoute] string key, [FromBody] AddJobRequest model, CancellationToken cancellationToken)
-        {
-            var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
-            await _addJobService.AddJob(model, userId, cancellationToken);
-        }
-        [HttpPost]
         [Route("check-all/{key}")]
         public async Task<ICollection<CheckAllApiResponse>> CheckAll([FromRoute] string key,CancellationToken cancellationToken)
         {
             var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
             return await _checkAllApiService.CheckAll(userId, cancellationToken);
         }
+
         [HttpGet]
         [Route("get-check-in-periods/{key}")]
         public async Task<ICollection<GetCheckInPeriodResponse>> GetJobs([FromRoute] string key,[FromQuery]GetCheckInPeriodRequest request, CancellationToken cancellationToken)

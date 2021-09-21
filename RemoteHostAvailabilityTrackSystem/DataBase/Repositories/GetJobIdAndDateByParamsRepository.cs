@@ -22,8 +22,8 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
         {
             await using var context = _contextFactory();
             var result = (await context.CheckApiJobModels
-                .FirstOrDefaultAsync(
-                    q=> q.Api == api && q.HoursInterval == hours && q.MinutesInterval == minutes, cancellationToken));
+                .FirstOrDefaultAsync(q=> q.Api == api && q.HoursInterval == hours && q.MinutesInterval == minutes,
+                    cancellationToken));
             return (result.Id, result.LastRunDate);
         }
     }

@@ -17,7 +17,6 @@ namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
         {
             _contextFactory = contextFactory;
         }
-        
         public async Task<ICollection<CheckApiJobModel>> GetJobs(CancellationToken cancellationToken)
         {
             await using var context = _contextFactory();

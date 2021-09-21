@@ -34,6 +34,7 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             var request = new CheckApiJobModel
             {
                 Api = job.Api,
+                UserId = (int?)userId,
                 HoursInterval = job.HoursInterval,
                 MinutesInterval = job.MinutesInterval
             };

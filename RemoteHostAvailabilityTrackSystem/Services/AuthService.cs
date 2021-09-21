@@ -19,7 +19,7 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             _authRepository = authRepository;
         }
 
-        public async Task<string> Authorize(string login, string password, CancellationToken cancellationToken)
+        public async Task<string> Auth(string login, string password, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(login))
                 throw new Exception("login not filled");
@@ -34,14 +34,13 @@ namespace RemoteHostAvailabilityTrackSystem.Services
                 return needUser.Key;
 
             needUser.Key = Guid.NewGuid().ToString();
-            needUser.FinishKeyDate = DateTime.Now.AddHours(24);
+            needUser.FinishKeyDate = DateTime.Now.AddHours(1);
 
             await _authRepository.Auth(needUser, cancellationToken);
 
             users = await _getUsersRepository.GetUsers(cancellationToken);
             needUser = users.FirstOrDefault(q => q.Login.ToLower() == login.ToLower());
             return needUser?.Key;
-
         }
     }
 }

@@ -21,8 +21,7 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             CancellationToken cancellationToken)
         {
             var all = await _getCheckAllResultRepository.GetAll(userId, cancellationToken);
-            var result = all.Where(q => q.Date >= (request.DateFrom ?? q.Date) &&
-                                                                                  q.Date <= (request.DateEnd ?? q.Date)).ToList();
+            var result = all.Where(q => q.Date >= (request.DateFrom ?? q.Date) && q.Date <= (request.DateEnd ?? q.Date)).ToList();
             return result;
         }
     }
