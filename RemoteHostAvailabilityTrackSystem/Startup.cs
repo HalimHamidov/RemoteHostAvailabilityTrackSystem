@@ -17,10 +17,19 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem
 {
+    /// <summary>
+    /// класс регистрации
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// конфигурация
+        /// </summary>
         public static IConfiguration Configuration { get; private set; }
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,8 +45,12 @@ namespace RemoteHostAvailabilityTrackSystem
                 return settings;
             };
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// </summary>
+        /// <param name="services"></param>
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors()
@@ -73,7 +86,10 @@ namespace RemoteHostAvailabilityTrackSystem
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
         public void Configure(IApplicationBuilder app)
         {
             app.UseExceptionHandlerEx();

@@ -6,8 +6,16 @@ using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.DataBase
 {
+    /// <summary>
+    /// класс расширение - регистрация базы данных.
+    /// </summary>
     public static class RegisterDataBases
     {
+        /// <summary>
+        /// Регистрация контекста.
+        /// </summary>
+        /// <param name="servicesCollection"></param>
+        /// <param name="connectionString"></param>
         public static void RegisterContext(this IServiceCollection servicesCollection, string connectionString)
         {
             servicesCollection.AddScoped<IAddJobRepository, AddJobRepository>();

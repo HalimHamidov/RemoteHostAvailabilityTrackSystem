@@ -7,15 +7,19 @@ using RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
 {
+    /// <inheritdoc />
     public class UpdateRunDateJobRepository : IUpdateRunDateJobRepository
     {
         private readonly Func<DataContext> _contextFactory;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="contextFactory"></param>
         public UpdateRunDateJobRepository(Func<DataContext> contextFactory)
         {
             _contextFactory = contextFactory;
         }
-
+        /// <inheritdoc />
         public async Task UpdateRunDate(int jobId, DateTime newRunDate, CancellationToken cancellationToken)
         {
             await using var context = _contextFactory();

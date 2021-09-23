@@ -7,8 +7,16 @@ using Microsoft.OpenApi.Models;
 
 namespace RemoteHostAvailabilityTrackSystem.MiddleWares
 {
+    /// <summary>
+    /// Расширение для регистрации MiddleWare сваггера
+    /// </summary>
     public static class MiddleWareConfig
     {
+        /// <summary>
+        /// метод для регистрации MiddleWare сваггера 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseSwaggerWithOptions(this IApplicationBuilder builder)
         {
             builder.UseSwagger(c =>
@@ -16,7 +24,7 @@ namespace RemoteHostAvailabilityTrackSystem.MiddleWares
                 c.PreSerializeFilters.Add((swaggerDoc, httpRequest) =>
                 {
                     if (!httpRequest.Headers.ContainsKey("X-Forwarders-Host")) return;
-                        
+                    
                     var serverUrl = $"{httpRequest.Headers["X-Forwarded-Proto"]}://" +
                                     $"{httpRequest.Headers["X-Forwarded-Host"]}" +
                                     $"{httpRequest.Headers["X-Forwarded-Prefix"]}";

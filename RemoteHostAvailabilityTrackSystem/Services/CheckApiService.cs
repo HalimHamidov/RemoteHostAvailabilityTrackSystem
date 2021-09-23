@@ -10,17 +10,22 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class CheckApiService : ICheckApiService
     {
         private readonly IAddResultCheckRepository _addResultCheckRepository;
         private readonly IUpdateRunDateJobRepository _updateRunDateJobRepository;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="addResultCheckRepository"></param>
+        /// <param name="updateRunDateJobRepository"></param>
         public CheckApiService(IAddResultCheckRepository addResultCheckRepository, IUpdateRunDateJobRepository updateRunDateJobRepository)
         {
             _addResultCheckRepository = addResultCheckRepository;
             _updateRunDateJobRepository = updateRunDateJobRepository;
         }
-
+        /// <inheritdoc />
         public async Task<CheckApiResponse> CheckApi(CheckApiRequest request, CancellationToken cancellationToken)
         {
             var response = new CheckApiResponse

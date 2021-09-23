@@ -10,15 +10,19 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class AddJobService : IAddJobService
     {
         private readonly IAddJobRepository _addJobRepository;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="addJobRepository"></param>
         public AddJobService(IAddJobRepository addJobRepository)
         {
             _addJobRepository = addJobRepository;
         }
-
+        /// <inheritdoc />
         public async Task AddJob(AddJobRequest job, long userId, CancellationToken cancellationToken)
         {
             if (!Uri.IsWellFormedUriString(job.Api, UriKind.Absolute))

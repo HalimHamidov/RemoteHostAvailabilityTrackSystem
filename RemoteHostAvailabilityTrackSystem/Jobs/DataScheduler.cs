@@ -5,8 +5,15 @@ using Quartz.Impl;
 
 namespace RemoteHostAvailabilityTrackSystem.Jobs
 {
+    /// <summary>
+    /// Расширение  для Планировщика данных.
+    /// </summary>
     public static class DataScheduler
     {
+        /// <summary>
+        /// метод Старт
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public static async void Start(IServiceProvider serviceProvider)
         {
             IScheduler scheduler = await StdSchedulerFactory.GetDefaultScheduler();

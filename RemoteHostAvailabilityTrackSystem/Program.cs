@@ -6,9 +6,15 @@ using RemoteHostAvailabilityTrackSystem.Jobs;
 
 namespace RemoteHostAvailabilityTrackSystem
 {
+    /// <summary>
+    /// Точка входа для нашей программы.
+    /// </summary>
     public class Program
     {
-
+         /// <summary>
+         /// entry point
+         /// </summary>
+         /// <param name="args"></param>
         public static void Main(string[] args)
         {
             try

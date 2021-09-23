@@ -1,61 +1,39 @@
-﻿Structure:
+﻿Задание
 
-* RemoteHostAvailabilityTrackSystem.DataBase.Models -> public class CheckApiJobModel
+В качестве тестового задания, вам предлагается разработать систему для отслеживания доступности удаленных хостов(далее адресов).
 
-* RemoteHostAvailabilityTrackSystem.DataBase -> public class DataContext = public DbSet<CheckApiJobModel> CheckApiJobModels { get; set; }
+Система должна быть разработана с применением .NET 5.0 и ASP.NET Core
 
-* RemoteHostAvailabilityTrackSystem.DataBase.Repositories -> public class GetJobsRepository ->
-  public async Task<ICollection<CheckApiJobModel>> GetJobs(CancellationToken cancellationToken) ->
-  return await context.CheckApiJobModels.ToListAsync(cancellationToken);
+Результат выполнения тестового задания должен быть размещен в публичном репозитории на сервисе github.com
 
-* RemoteHostAvailabilityTrackSystem.DataBase.Repositories.Interfaces->public interface IGetJobsRepository
+Результат тестового задания можно представить без UI, при наличии документации к методам API
 
-* RemoteHostAvailabilityTrackSystem.Services -> public class GetJobsService : ->
-  public async Task<ICollection<CheckApiJobModel>> GetJobs(CancellationToken cancellationToken)
-  {
-  return  await _getJobsRepository.GetJobs(cancellationToken);
-  }
+Система должна представлять из себя веб приложение, в которое можно загрузить адреса (например, google.com) и частоту проверки доступности этого адреса (пауза между проверками или крон выражение).
 
-* RemoteHostAvailabilityTrackSystem.Services.Interfaces
-  {
-  public interface IGetJobsService
-  {
+Можно добавить несколько проверяемых адресов и настроить частоту проверки для каждого адреса отдельно. Каждый пользователь может получить результат проверки только для тех адресов, которые добавил сам. Требуется минимизировать количество проверок(Например, если 2 пользователя добавили один и тот-же адрес с одинаковой настройкой частоты проверки, сервер должен выполнять проверку его доступности только 1 раз).
 
+Должна быть реализована возможность: 
 
-*  RemoteHostAvailabilityTrackSystem.Controllers -> public class CheckApiController
-   [HttpGet]
-   [Route("get-jobs/{key}")]
-   public async Task<ICollection<CheckApiJobModel>> GetJobs([FromRoute] string key, CancellationToken cancellationToken)
-   {
-   var userId = await _checkAuthService.CheckAuth(key, cancellationToken);
-   var jobs = await _getJobsService.GetJobs(cancellationToken);
-   return jobs.Where(q => q.UserId(CheckApiJobModel) == userId).ToList();
-   }
+1.	Добавление пользователя;
 
+2.	Войти под пользователем;
 
+3.	Добавить адрес и частоту проверки доступности;
 
-http port
+4.	Получить историю проверок за заданный промежуток времени;
 
-https://docs.microsoft.com/ru-ru/dotnet/api/system.net.ipaddress.loopback?view=net-5.0
+5.	Получить текущее состояние работоспособности проверяемых адресов.
+     
+      # Материалы 
+      
+      Полезные ссылки которые могут помочь в выполнении:
 
-http://127.0.0.1:8080/api/v1/auth/user
+      ●	https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
 
+      ●	https://docs.microsoft.com/en-us/ef/core/
 
-"C:\Program Files\JetBrains\JetBrains Rider 2020.3.2\plugins\dpa\DotFiles\JetBrains.DPA.Runner.exe" --handle=7008 --backend-pid=9112 --detach-event-name=dpa.detach.7008 "C:\Program Files\dotnet\dotnet.exe" "D:/Projects/INNOSTAGE-1st assignment/URLAvailabilityTrackTask/RemoteHostAvailabilityTrackSystem/RemoteHostAvailabilityTrackSystem/bin/Debug/net5.0/RemoteHostAvailabilityTrackSystem.dll"
+      ●	https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-5.0&tabs=visual-studio
 
-Server started
+      ●	https://docs.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-5.0
 
-Hosting environment: Development
-
-Content root path: D:\Projects\INNOSTAGE-1st assignment\URLAvailabilityTrackTask\RemoteHostAvailabilityTrackSystem\RemoteHostAvailabilityTrackSystem\bin\Debug\net5.0\
-
-Now listening on: http://127.0.0.1:8080
-
-Application started. Press Ctrl+C to shut down.
-
-
-https://microsoft.github.io/reverse-proxy/articles/transforms.html
-
-// Set the comments path for the Swagger JSON and UI.
-
-https://docs.microsoft.com/ru-ru/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio
+      ●	https://docs.microsoft.com/en-us/aspnet/core/security/authorization/introduction?view=aspnetcore-5.0

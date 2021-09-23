@@ -5,15 +5,25 @@ using Microsoft.AspNetCore.Http;
 
 namespace RemoteHostAvailabilityTrackSystem.MiddleWares
 {
+    /// <summary>
+    ///  Расширение для исключений
+    /// </summary>
     public class ExceptionMiddleware
     {
         private RequestDelegate Next { get; }
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="next"></param>
         public ExceptionMiddleware(RequestDelegate next)
         {
             Next = next ?? throw new ArgumentNullException(nameof(next));
         }
-
+        /// <summary>
+        /// вызываемый метод при исключении
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext context)
         {
             var body = context.Response.Body;

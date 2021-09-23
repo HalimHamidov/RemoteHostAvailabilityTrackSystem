@@ -9,15 +9,19 @@ using RemoteHostAvailabilityTrackSystem.Responses;
 
 namespace RemoteHostAvailabilityTrackSystem.DataBase.Repositories
 {
+    /// <inheritdoc />
     public class GetCheckAllResultRepository : IGetCheckAllResultRepository
     {
         private readonly Func<DataContext> _contextFactory;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="contextFactory"></param>
         public GetCheckAllResultRepository(Func<DataContext> contextFactory)
         {
             _contextFactory = contextFactory;
         }
-
+        /// <inheritdoc />
         public async Task<ICollection<GetCheckInPeriodResponse>> GetAll(long userId, CancellationToken cancellationToken)
         {
             await using var context = _contextFactory();

@@ -11,12 +11,18 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class CheckAllApiService : ICheckAllApiService
     {
         private readonly IGetJobsRepository _getJobsRepository;
         private readonly ICheckApiService _checkApiService;
         private readonly IAddResultCheckRepository _addResultCheckRepository;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="getJobsRepository"></param>
+        /// <param name="checkApiService"></param>
+        /// <param name="addResultCheckRepository"></param>
         public CheckAllApiService(IGetJobsRepository getJobsRepository, ICheckApiService checkApiService,
             IAddResultCheckRepository addResultCheckRepository)
         {
@@ -24,7 +30,7 @@ namespace RemoteHostAvailabilityTrackSystem.Services
             _checkApiService = checkApiService;
             _addResultCheckRepository = addResultCheckRepository;
         }
-
+        /// <inheritdoc />
         public async Task<ICollection<CheckAllApiResponse>> CheckAll(long userId, CancellationToken cancellationToken)
         {
             var results = new List<CheckAllApiResponse>();

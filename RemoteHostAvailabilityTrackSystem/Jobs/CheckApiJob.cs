@@ -10,15 +10,26 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Jobs
 {
+    /// <summary>
+    /// служба по проверке удаленного хоста(сайта)
+    /// </summary>
     public class CheckApiJob : IJob
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="serviceScopeFactory"></param>
         public CheckApiJob(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
-
+        /// <summary>
+        /// вызов метода.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task Execute(IJobExecutionContext context)
         {
             var dateTime = DateTime.Now;

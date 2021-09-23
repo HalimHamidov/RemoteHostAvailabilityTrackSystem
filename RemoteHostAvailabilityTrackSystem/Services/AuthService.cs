@@ -7,18 +7,23 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class AuthService : IAuthService
     {
 
         private readonly IGetUsersRepository _getUsersRepository;
         private readonly IAuthRepository _authRepository;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="getUsersRepository"></param>
+        /// <param name="authRepository"></param>
         public AuthService(IGetUsersRepository getUsersRepository, IAuthRepository authRepository)
         {
             _getUsersRepository = getUsersRepository;
             _authRepository = authRepository;
         }
-
+        /// <inheritdoc />
         public async Task<string> Auth(string login, string password, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(login))

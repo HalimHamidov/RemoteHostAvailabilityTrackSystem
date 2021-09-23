@@ -9,14 +9,19 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class GetCheckInPeriodService : IGetCheckInPeriodService
     {
         private readonly IGetCheckAllResultRepository _getCheckAllResultRepository;
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="getCheckAllResultRepository"></param>
         public GetCheckInPeriodService(IGetCheckAllResultRepository getCheckAllResultRepository)
         {
             _getCheckAllResultRepository = getCheckAllResultRepository;
         }
-
+        /// <inheritdoc />
         public async Task<ICollection<GetCheckInPeriodResponse>> GetCheckInPeriod(long userId, GetCheckInPeriodRequest request,
             CancellationToken cancellationToken)
         {

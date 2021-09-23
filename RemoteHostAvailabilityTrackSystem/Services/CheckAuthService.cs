@@ -7,15 +7,19 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class CheckAuthService : ICheckAuthService
     {
         private readonly IGetUsersRepository _getUsersRepository;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="getUsersRepository"></param>
         public CheckAuthService(IGetUsersRepository getUsersRepository)
         {
             _getUsersRepository = getUsersRepository;
         }
-
+        /// <inheritdoc />
         public async Task<long> CheckAuth(string key, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(key))

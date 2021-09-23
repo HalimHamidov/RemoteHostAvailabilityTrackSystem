@@ -9,16 +9,22 @@ using RemoteHostAvailabilityTrackSystem.Services.Interfaces;
 
 namespace RemoteHostAvailabilityTrackSystem.Services
 {
+    /// <inheritdoc />
     public class AddUserService : IAddUserService
     {
         private readonly IAddUserRepository _addUserRepository;
         private readonly IGetUsersRepository _getUsersRepository;
-
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="addUserRepository"></param>
+        /// <param name="getUsersRepository"></param>
         public AddUserService(IAddUserRepository addUserRepository, IGetUsersRepository getUsersRepository)
         {
             _addUserRepository = addUserRepository;
             _getUsersRepository = getUsersRepository;
         }
+        /// <inheritdoc />
         public async Task AddUser(string login, string password, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(login))

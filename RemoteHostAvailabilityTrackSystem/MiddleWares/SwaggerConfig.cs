@@ -6,8 +6,16 @@ using Microsoft.OpenApi.Models;
 
 namespace RemoteHostAvailabilityTrackSystem.MiddleWares
 {
+    /// <summary>
+    /// Расширение для регистрации сваггера.
+    /// </summary>
     public static class SwaggerConfig
     {
+        /// <summary>
+        /// регистрация сваггера.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         public static IServiceCollection AddSwagger(this IServiceCollection collection)
         {
             collection.AddSwaggerGen(c =>
