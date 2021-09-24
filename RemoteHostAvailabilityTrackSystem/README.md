@@ -8,4 +8,16 @@
 3. Enjoy:        
 ![img.jpg](files/img.jpg)
 
-4.[overview](files/localhost-8080-swagger-index-html..pdf)
+4. [Overview](files/localhost-8080-swagger-index-html..pdf)
+
+5. Database-side
+    ![db_users](files/users%20db.jpg)
+
+    ![db_users](files/CheckApiJobModel.jpg)
+
+    ![db_users](files/CheckApiJobModels_null.jpg)
+
+    ![db_users](files/CheckApiResults.jpg)
+
+
+
